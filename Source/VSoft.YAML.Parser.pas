@@ -966,7 +966,7 @@ begin
         on E: EYAMLParseException do
         begin
           raise EYAMLParseException.Create(
-            Format('Error in document %d: %s', [documentCount + 1, E.Message]),
+            Format('Error in document %d: %s', [documentCount + 1, E.Message], YAMLFormatSettings),
             E.Line,
             E.Column
           );

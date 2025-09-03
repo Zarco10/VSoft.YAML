@@ -189,6 +189,9 @@ type
 
 implementation
 
+uses
+  VSoft.YAML.Classes;
+
 { TYAMLEdgeCasesTests }
 
 procedure TYAMLEdgeCasesTests.Setup;
@@ -219,7 +222,7 @@ begin
   Result := '';
   for i := 1 to depth do
   begin
-    Result := Result + StringOfChar(' ', (i - 1) * 2) + Format('level_%d:', [i]) + sLineBreak;
+    Result := Result + StringOfChar(' ', (i - 1) * 2) + Format('level_%d:', [i], YAMLFormatSettings) + sLineBreak;
   end;
   Result := Result + StringOfChar(' ', depth * 2) + 'value: final';
 end;
@@ -258,9 +261,9 @@ var
   doc: IYAMLDocument;
   root: IYAMLMapping;
 begin
-  yamlContent := Format('max_int32: %d', [High(Int32)]) + sLineBreak +
-                Format('min_int32: %d', [Low(Int32)]) + sLineBreak +
-                Format('max_int64: %d', [High(Int64)]) + sLineBreak +
+  yamlContent := Format('max_int32: %d', [High(Int32)], YAMLFormatSettings) + sLineBreak +
+                Format('min_int32: %d', [Low(Int32)], YAMLFormatSettings) + sLineBreak +
+                Format('max_int64: %d', [High(Int64)], YAMLFormatSettings) + sLineBreak +
                 'zero: 0';
 
   doc := TYAML.LoadFromString(yamlContent);
@@ -299,7 +302,7 @@ var
   root: IYAMLMapping;
 begin
   largeString := CreateLargeString(10000);
-  yamlContent := Format('large_string: "%s"', [largeString]);
+  yamlContent := Format('large_string: "%s"', [largeString], YAMLFormatSettings);
 
   doc := TYAML.LoadFromString(yamlContent);
   root := doc.AsMapping;
@@ -514,7 +517,7 @@ begin
   // Add 1000 items
   for i := 1 to 1000 do
   begin
-    items.AddValue(Format('Item number %d with some text content', [i]));
+    items.AddValue(Format('Item number %d with some text content', [i], YAMLFormatSettings));
   end;
 
   yamlStr := TYAML.WriteToString(doc);
@@ -540,7 +543,7 @@ begin
   // Navigate down the nesting
   for i := 1 to 50 do
   begin
-    current := current.Values[Format('level_%d', [i])];
+    current := current.Values[Format('level_%d', [i], YAMLFormatSettings)];
     Assert.IsNotNull(current);
   end;
 
@@ -575,7 +578,7 @@ begin
   // Add 500 keys at the same level
   for i := 1 to 500 do
   begin
-    root.AddOrSetValue(Format('key_%03d', [i]), Format('value_%d', [i]));
+    root.AddOrSetValue(Format('key_%03d', [i], YAMLFormatSettings), Format('value_%d', [i], YAMLFormatSettings));
   end;
 
   yamlStr := TYAML.WriteToString(doc);
@@ -602,7 +605,7 @@ begin
   begin
     obj := root.AddMapping;
     obj.AddOrSetValue('id', i);
-    obj.AddOrSetValue('name', Format('Object_%d', [i]));
+    obj.AddOrSetValue('name', Format('Object_%d', [i], YAMLFormatSettings));
     obj.AddOrSetValue('active', (i mod 2) = 0);
   end;
 
@@ -647,7 +650,7 @@ begin
   // Perform many add/update operations
   for i := 1 to 1000 do
   begin
-    root.AddOrSetValue('dynamic_key', Format('value_%d', [i]));
+    root.AddOrSetValue('dynamic_key', Format('value_%d', [i], YAMLFormatSettings));
     if i mod 100 = 0 then
     begin
       yamlStr := TYAML.WriteToString(doc);
@@ -1174,7 +1177,7 @@ var
   originalValue, parsedValue: Double;
 begin
   originalValue := 1.23456789012345678901234567890;
-  yamlContent := Format('precise_floxat: %.30g', [originalValue]);
+  yamlContent := Format('precise_floxat: %.30g', [originalValue], YAMLFormatSettings);
 
   doc := TYAML.LoadFromString(yamlContent);
   root := doc.AsMapping;
@@ -1504,7 +1507,7 @@ var
 begin
   yamlContent := 'data:' + sLineBreak;
   for i := 1 to 100 do
-    yamlContent := yamlContent + Format('  item%d: value%d', [i, i]) + sLineBreak;
+    yamlContent := yamlContent + Format('  item%d: value%d', [i, i], YAMLFormatSettings) + sLineBreak;
 
   // Load and unload repeatedly
   for i := 1 to 50 do
@@ -1628,8 +1631,8 @@ begin
   // Create very deep nesting
   for i := 1 to 20 do
   begin
-    current.AddOrSetValue(Format('value_%d', [i]), i);
-    current := current.AddOrSetMapping(Format('level_%d', [i]));
+    current.AddOrSetValue(Format('value_%d', [i], YAMLFormatSettings), i);
+    current := current.AddOrSetMapping(Format('level_%d', [i], YAMLFormatSettings));
   end;
 
   doc.Options.IndentSize := 8;

@@ -121,7 +121,7 @@
         <Debugger_RunParams>-exitbehavior:pause</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <Debugger_RunParams>-exitbehavior:pause -run:VSoft.YAML.Tests.Comprehensive.TYAMLComprehensiveTests.Test_ParseInteger_Decimal</Debugger_RunParams>
+        <Debugger_RunParams>-exitbehavior:pause</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>

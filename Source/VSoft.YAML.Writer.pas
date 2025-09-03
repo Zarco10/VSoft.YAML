@@ -264,7 +264,7 @@ begin
         result := 'false';
     end;
     TYAMLValueType.vtInteger : result := IntToStr(value.AsInteger);
-    TYAMLValueType.vtFloat :   result := FloatToStr(value.AsFloat);
+    TYAMLValueType.vtFloat :   result := FloatToStr(value.AsFloat, YAMLFormatSettings );
     TYAMLValueType.vtString :
     begin
       if NeedsQuoting(value.AsString) then

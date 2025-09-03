@@ -171,7 +171,8 @@ type
 implementation
 
 uses
-  System.IOUtils;
+  System.IOUtils,
+  VSoft.YAML.Classes;
 
 { TYAMLWriterTests }
 
@@ -1169,7 +1170,7 @@ begin
   
   for i := 1 to 100 do
   begin
-    items.AddValue(Format('Item %d', [i]));
+    items.AddValue(Format('Item %d', [i], YAMLFormatSettings));
   end;
   
   yamlStr := TYAML.WriteToString(doc);
@@ -1190,8 +1191,8 @@ begin
   
   for i := 1 to 10 do
   begin
-    current.AddOrSetValue(Format('value_%d', [i]), i);
-    current := current.AddOrSetMapping(Format('level_%d', [i]));
+    current.AddOrSetValue(Format('value_%d', [i], YAMLFormatSettings), i);
+    current := current.AddOrSetMapping(Format('level_%d', [i], YAMLFormatSettings));
   end;
   
   yamlStr := TYAML.WriteToString(doc);
@@ -1212,7 +1213,7 @@ begin
   
   for i := 1 to 50 do
   begin
-    root.AddOrSetValue(Format('key_%d', [i]), Format('value_%d', [i]));
+    root.AddOrSetValue(Format('key_%d', [i]), Format('value_%d', [i], YAMLFormatSettings));
   end;
   
   yamlStr := TYAML.WriteToString(doc);
@@ -1528,7 +1529,7 @@ begin
     doc := TYAML.CreateMapping;
     root := doc.AsMapping;
     root.AddOrSetValue('document_id', i + 1);
-    root.AddOrSetValue('title', Format('Document Number %d', [i + 1]));
+    root.AddOrSetValue('title', Format('Document Number %d', [i + 1], YAMLFormatSettings));
     root.AddOrSetValue('active', (i mod 2) = 0);
     docs[i] := doc;
   end;
