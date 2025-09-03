@@ -1354,7 +1354,7 @@ begin
       case Value.ValueType of
         TYAMLValueType.vtString : CopiedValue := TYAMLValue.Create(Self, TYAMLValueType.vtString, Value.AsString, value.Tag);
         TYAMLValueType.vtInteger : CopiedValue := TYAMLValue.Create(Self, TYAMLValueType.vtInteger, IntToStr(Value.AsInteger), value.Tag);
-        TYAMLValueType.vtFloat : CopiedValue := TYAMLValue.Create(Self, TYAMLValueType.vtFloat, FloatToStr(Value.AsFloat), value.Tag);
+        TYAMLValueType.vtFloat : CopiedValue := TYAMLValue.Create(Self, TYAMLValueType.vtFloat, FloatToStr(Value.AsFloat, YAMLFormatSettings), value.Tag);
         TYAMLValueType.vtBoolean : CopiedValue := TYAMLValue.Create(Self, TYAMLValueType.vtBoolean, BoolToStr(Value.AsBoolean, True), value.Tag);
         TYAMLValueType.vtNull : CopiedValue := TYAMLValue.Create(Self, TYAMLValueType.vtNull, '', '');
       else

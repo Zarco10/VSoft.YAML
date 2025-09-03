@@ -1617,7 +1617,7 @@ begin
           if Frac(Operand.NumericValue) = 0 then
             result := TYAMLValue.Create(nil, TYAMLValueType.vtInteger, IntToStr(Trunc(Operand.NumericValue)))
           else
-            result := TYAMLValue.Create(nil, TYAMLValueType.vtFloat, FloatToStr(Operand.NumericValue));
+            result := TYAMLValue.Create(nil, TYAMLValueType.vtFloat, FloatToStr(Operand.NumericValue, YAMLFormatSettings));
         end
         else
           result := TYAMLValue.Create(nil, TYAMLValueType.vtBoolean, BoolToStr(Operand.BoolValue, True));
