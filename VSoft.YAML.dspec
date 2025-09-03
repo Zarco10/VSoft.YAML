@@ -1,7 +1,7 @@
 {
  "metadata": {
   "id": "VSoft.YAML",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "YAML Parser",
   "authors": "Vincent Parrett",
   "projectUrl": "https://github.com/VSoftTechnologies/VSoft.YAML",
