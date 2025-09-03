@@ -898,7 +898,8 @@ function TYAMLWriterImpl.WriteToString(const value : IYAMLValue) : string;
 var
   stream : TStringStream;
 begin
-  stream := TStringStream.Create;
+  FOptions.Encoding := TEncoding.Default;
+  stream := TStringStream.Create('', FOptions.Encoding, false);
   try
     WriteToStream(value, stream);
     result := stream.DataString;
@@ -912,7 +913,8 @@ var
   stream : TStringStream;
 begin
   FIndentLevel := 0;
-  stream := TStringStream.Create;
+  doc.Options.Encoding := TEncoding.Default;
+  stream := TStringStream.Create('', TEncoding.Default, false);
   try
     //WriteToStream will create the writer
     WriteToStream(doc, false, stream);
