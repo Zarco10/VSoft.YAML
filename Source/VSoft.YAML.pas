@@ -312,6 +312,7 @@ type
     function GetEmitYAMLDirective : boolean;
     procedure SetEmitYAMLDirective(value : boolean);
 
+    function Clone : IYAMLEmitOptions;
     /// <summary>  Setting the Encoding to a non standard encoding will take ownership of the encoding </summary>
     property Encoding : TEncoding read GetEncoding write SetEncoding;
     property Format : TYAMLOutputFormat read GetFormat write SetFormat;

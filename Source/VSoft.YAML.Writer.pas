@@ -83,7 +83,8 @@ uses
 constructor TYAMLWriterImpl.Create(const options : IYAMLEmitOptions);
 begin
   inherited Create;
-  FOptions := options;
+  // cloning options as we may need to modify them depending on methods called
+  FOptions := options.Clone;
   FIndentLevel := 0;
   FWriter := nil;
 end;
@@ -898,6 +899,7 @@ function TYAMLWriterImpl.WriteToString(const value : IYAMLValue) : string;
 var
   stream : TStringStream;
 begin
+  //force utf16 to avoid round trip encoding conversions
   FOptions.Encoding := TEncoding.Default;
   stream := TStringStream.Create('', FOptions.Encoding, false);
   try
@@ -913,8 +915,9 @@ var
   stream : TStringStream;
 begin
   FIndentLevel := 0;
-  doc.Options.Encoding := TEncoding.Default;
-  stream := TStringStream.Create('', TEncoding.Default, false);
+  //force utf16 to avoid round trip encoding conversions
+  FOptions.Encoding := TEncoding.Default;
+  stream := TStringStream.Create('', FOptions.Encoding, false);
   try
     //WriteToStream will create the writer
     WriteToStream(doc, false, stream);

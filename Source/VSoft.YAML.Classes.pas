@@ -287,7 +287,8 @@ type
     procedure SetEmitTagDirectives(value : boolean);
     function GetEmitYAMLDirective : boolean;
     procedure SetEmitYAMLDirective(value : boolean);
-
+    function Clone : IYAMLEmitOptions;
+    constructor CreateClone(const source : IYAMLEmitOptions);
   public
     constructor Create;
     destructor Destroy;override;
@@ -1493,6 +1494,11 @@ end;
 
 { TYAMLEmitOptions }
 
+function TYAMLEmitOptions.Clone: IYAMLEmitOptions;
+begin
+  result := TYAMLEmitOptions.CreateClone(Self);
+end;
+
 constructor TYAMLEmitOptions.Create;
 begin
   FEncoding := TEncoding.UTF8;
@@ -1506,6 +1512,21 @@ begin
   FEmitDocumentMarkers := false;
   FEmitTagDirectives := false;
   FEmitYAMLDirective := false;
+end;
+
+constructor TYAMLEmitOptions.CreateClone(const source: IYAMLEmitOptions);
+begin
+  FEncoding := source.Encoding;
+  FFormat := source.Format;
+  FIndentSize := source.IndentSize;
+  FQuoteStrings := source.QuoteStrings;
+  FEmitDocumentMarkers := source.EmitDocumentMarkers;
+  FMaxLineLength := source.MaxLineLength;
+  FWriteBOM := source.WriteByteOrderMark;
+  FEmitTags := source.EmitTags;
+  FEmitExplicitNull := source.EmitExplicitNull;
+  FEmitTagDirectives := source.EmitTagDirectives;
+  FEmitYAMLDirective := source.EmitYAMLDirective;
 end;
 
 destructor TYAMLEmitOptions.Destroy;
