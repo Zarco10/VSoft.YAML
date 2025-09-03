@@ -363,8 +363,18 @@ type
     constructor Create;
   end;
 
-var
-  YAMLFormatSettings : TFormatSettings;
+const
+  YAMLFormatSettings : TFormatSettings = (
+    DateSeparator: '-';
+    TimeSeparator: ':';
+    ShortDateFormat: 'YYYY-MM-DD';
+    LongDateFormat: 'YYYY-MM-DD';
+    TimeAMString: '';
+    TimePMString: '';
+    ShortTimeFormat: 'hh:nn:ss';
+    LongTimeFormat: 'hh:nn:ss';
+    DecimalSeparator: '.';
+  );
 
 implementation
 
@@ -477,7 +487,7 @@ begin
   else if SameText(trimmedValue, '-.inf') or SameText(trimmedValue, '-.Inf') or SameText(trimmedValue, '-.INF') then
     result := NegInfinity
   else
-    result := StrToFloat(trimmedValue);
+    result := StrToFloat(trimmedValue, YAMLFormatSettings);
 end;
 
 function TYAMLValue.AsInteger : Int64;
@@ -1818,9 +1828,5 @@ begin
 end;
 
 
-initialization
-  YAMLFormatSettings := TFormatSettings.Create('en-us');
-  YAMLFormatSettings.DecimalSeparator := '.';
-  YAMLFormatSettings.ThousandSeparator := ',';
 
 end.

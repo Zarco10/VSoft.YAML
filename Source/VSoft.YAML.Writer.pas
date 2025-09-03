@@ -74,6 +74,9 @@ type
 
 implementation
 
+uses
+  VSoft.YAML.Classes;
+
 { TYAMLWriterImpl }
 
 
@@ -119,7 +122,7 @@ begin
     exit(True);
 
   // Check if it looks like a number
-  if TryStrToInt(value, intVal) or TryStrToFloat(value, floatVal) then
+  if TryStrToInt(value, intVal) or TryStrToFloat(value, floatVal, YAMLFormatSettings) then
     exit(True);
 
   // Check for special characters

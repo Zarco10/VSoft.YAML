@@ -1424,7 +1424,7 @@ begin
       else
       begin
         // Has decimal point, parse as float
-        result.NumericValue := StrToFloat(value);
+        result.NumericValue := StrToFloat(value, YAMLFormatSettings);
       end;
     except
       raise EYAMLPathError.Create(RS_YAML_PATH_INVALID_OPERAND);
