@@ -5,7 +5,7 @@
 ## Features
 
 ### ✅ YAML 1.2 
-- **YAML 1.2 Specification Compliance** - Attempting full support for the YAML 1.2
+- **YAML 1.2 Specification Compliance** - Attempting full support for YAML 1.2
 - **Complete Value Type System** - Handles all 9 YAML value types:
   - Scalars: null, boolean, integer, float, string, timestamp
   - Collections: sequence (arrays), mapping (objects), set (unique values array)
@@ -29,7 +29,7 @@ For full YAML Feature details see - [YAML Features](/docs/YAML-Features-Implemen
   - Block style (human-readable, indented)
   - Flow style (compact, JSON-like)
   - Mixed style formatting
-- **Encoding Detection** - Automatic UTF-8/ANSI/ASCII detection
+- **Encoding** - Automatic encoding detection - default is UTF-8
 - **Error Handling** - Detailed parse error reporting with line/column information
 
 ### Advanced Features
