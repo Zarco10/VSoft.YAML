@@ -62,7 +62,7 @@ begin
 
     //tell the runner how we will log things
     //Log to the console window if desired
-//    TDUnitX.Options.ConsoleMode := TDunitXConsoleMode.Quiet;
+    TDUnitX.Options.ConsoleMode := TDunitXConsoleMode.Quiet;
     if TDUnitX.Options.ConsoleMode <> TDunitXConsoleMode.Off then
     begin
       ReportMemoryLeaksOnShutdown := True;

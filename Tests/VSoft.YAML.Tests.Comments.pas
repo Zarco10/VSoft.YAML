@@ -356,8 +356,12 @@ var
   features: IYAMLSequence;
 begin
   // Load the comprehensive test file
+  {$IFDEF POSIX}
+  doc := TYAML.LoadFromFile('./test_comment_sample.yaml');
+  {$ELSE}
   doc := TYAML.LoadFromFile('..\..\testfiles\test_comment_sample.yaml');
-  
+  {$ENDIF}
+
   // Write it back to string
   outputText := TYAML.WriteToString(doc);
   

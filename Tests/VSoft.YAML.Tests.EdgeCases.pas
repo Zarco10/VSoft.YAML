@@ -332,7 +332,11 @@ begin
   Assert.AreEqual('∑∞∂∫', root.Items['mathematical'].AsString);
   Assert.AreEqual('™©®℠', root.Items['symbols'].AsString);
 
-  doc := TYAML.LoadFromFile('..\..\test_utf8.yaml');
+  {$IFDEF POSIX}
+  doc := TYAML.LoadFromFile('./test_utf8.yaml');
+  {$ELSE}
+  doc := TYAML.LoadFromFile('..\..\testfiles\test_utf8.yaml');
+  {$ENDIF}
   root := doc.AsMapping;
 
   Assert.AreEqual('🚀🌟💻🎉', root.Items['emoji'].AsString);
