@@ -5,6 +5,9 @@ interface
 uses
   DUnitX.TestFramework,
   VSoft.YAML,
+  {$IFDEF POSIX}
+  Posix.Unistd,
+  {$ENDIF}
   System.SysUtils,
   System.Classes,
   System.DateUtils;
