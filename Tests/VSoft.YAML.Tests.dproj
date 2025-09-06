@@ -5,10 +5,11 @@
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Linux64</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>131</TargetedPlatforms>
         <AppType>Console</AppType>
         <MainSource>VSoft.YAML.Tests.dpr</MainSource>
+        <ProjectName Condition="'$(ProjectName)'==''">VSoft.YAML.Tests</ProjectName>
     </PropertyGroup>
     <PropertyGroup>
         <DPMCompiler>12.0</DPMCompiler>
@@ -131,7 +132,7 @@
         <Debugger_RunParams>-exitbehavior:pause</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <Debugger_RunParams>-exitbehavior:pause</Debugger_RunParams>
+        <Debugger_RunParams>-exitbehavior:pause -run:VSoft.YAML.Tests.JSON.TJSONParsingTests.TestJSONStringsWithEscapes</Debugger_RunParams>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -165,6 +166,7 @@
         <DCCReference Include="..\Source\VSoft.YAML.StreamReader.pas"/>
         <DCCReference Include="..\Source\VSoft.YAML.TagInfo.pas"/>
         <DCCReference Include="..\Source\VSoft.YAML.StreamWriter.pas"/>
+        <DCCReference Include="VSoft.YAML.Tests.JSON.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

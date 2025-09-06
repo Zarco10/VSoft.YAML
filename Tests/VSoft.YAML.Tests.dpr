@@ -34,7 +34,8 @@ uses
   VSoft.YAML.IO in '..\Source\VSoft.YAML.IO.pas',
   VSoft.YAML.StreamReader in '..\Source\VSoft.YAML.StreamReader.pas',
   VSoft.YAML.TagInfo in '..\Source\VSoft.YAML.TagInfo.pas',
-  VSoft.YAML.StreamWriter in '..\Source\VSoft.YAML.StreamWriter.pas';
+  VSoft.YAML.StreamWriter in '..\Source\VSoft.YAML.StreamWriter.pas',
+  VSoft.YAML.Tests.JSON in 'VSoft.YAML.Tests.JSON.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}
