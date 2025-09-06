@@ -486,6 +486,9 @@ begin
 
   // Parse key-value pairs
   repeat
+    if (FCurrentToken.TokenKind = TYAMLTokenKind.Indent) then
+      NextToken;
+
     // Parse key
     if (FCurrentToken.TokenKind = TYAMLTokenKind.Value) or (FCurrentToken.TokenKind = TYAMLTokenKind.QuotedString) then
     begin

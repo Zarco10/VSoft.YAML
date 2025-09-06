@@ -36,6 +36,30 @@ type
     [Test]
     procedure TestComplexJSONExample;
 
+    [Test]
+    procedure TestJSONArrayOfObjects;
+
+    [Test]
+    procedure TestJSONEmptyContainers;
+
+    [Test]
+    procedure TestJSONNestedArrays;
+
+    [Test]
+    procedure TestJSONMixedTypes;
+
+    [Test]
+    procedure TestJSONLargeNumbers;
+
+    [Test]
+    procedure TestJSONWhitespaceHandling;
+
+    [Test]
+    procedure TestJSONSpecialStringValues;
+
+    [Test]
+    procedure TestJSONDeepNesting;
+
   end;
 
 
@@ -246,6 +270,206 @@ begin
   
   Assert.AreEqual(true, doc.Root.Values['isMarried'].AsBoolean);
   Assert.IsTrue(doc.Root.Values['spouse'].IsNull);
+end;
+
+procedure TJSONParsingTests.TestJSONArrayOfObjects;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+  products: IYAMLSequence;
+begin
+  jsonText := '[' +
+    '{"id": 1, "name": "Laptop", "price": 999.99, "inStock": true},' +
+    '{"id": 2, "name": "Mouse", "price": 29.99, "inStock": false},' +
+    '{"id": 3, "name": "Keyboard", "price": 79.99, "inStock": true}' +
+  ']';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  Assert.AreEqual(TYAMLValueType.vtSequence, doc.Root.ValueType);
+  
+  products := doc.Root.AsSequence;
+  Assert.AreEqual(3, products.Count);
+  
+  Assert.AreEqual<Int64>(1, products.Items[0].Values['id'].AsInteger);
+  Assert.AreEqual('Laptop', products.Items[0].Values['name'].AsString);
+  Assert.AreEqual(999.99, products.Items[0].Values['price'].AsFloat, 0.01);
+  Assert.AreEqual(true, products.Items[0].Values['inStock'].AsBoolean);
+  
+  Assert.AreEqual<Int64>(2, products.Items[1].Values['id'].AsInteger);
+  Assert.AreEqual(false, products.Items[1].Values['inStock'].AsBoolean);
+end;
+
+procedure TJSONParsingTests.TestJSONEmptyContainers;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+begin
+  jsonText := '{' +
+    '"emptyObject": {},' +
+    '"emptyArray": [],' +
+    '"emptyString": ""' +
+  '}';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  
+  Assert.AreEqual(TYAMLValueType.vtMapping, doc.Root.Values['emptyObject'].ValueType);
+  Assert.AreEqual(0, doc.Root.Values['emptyObject'].AsMapping.Count);
+  
+  Assert.AreEqual(TYAMLValueType.vtSequence, doc.Root.Values['emptyArray'].ValueType);
+  Assert.AreEqual(0, doc.Root.Values['emptyArray'].AsSequence.Count);
+  
+  Assert.AreEqual('', doc.Root.Values['emptyString'].AsString);
+end;
+
+procedure TJSONParsingTests.TestJSONNestedArrays;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+  matrix: IYAMLSequence;
+  row1: IYAMLSequence;
+begin
+  jsonText := '{' +
+    '"matrix": [[1, 2, 3], [4, 5, 6], [7, 8, 9]],' +
+    '"tags": [["red", "blue"], ["green", "yellow"]]' +
+  '}';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  
+  matrix := doc.Root.Values['matrix'].AsSequence;
+  Assert.AreEqual(3, matrix.Count);
+  
+  row1 := matrix.Items[0].AsSequence;
+  Assert.AreEqual(3, row1.Count);
+  Assert.AreEqual<Int64>(1, row1.Items[0].AsInteger);
+  Assert.AreEqual<Int64>(2, row1.Items[1].AsInteger);
+  Assert.AreEqual<Int64>(3, row1.Items[2].AsInteger);
+  
+  Assert.AreEqual(2, doc.Root.Values['tags'].AsSequence.Count);
+  Assert.AreEqual('red', doc.Root.Values['tags'].AsSequence.Items[0].AsSequence.Items[0].AsString);
+end;
+
+procedure TJSONParsingTests.TestJSONMixedTypes;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+  mixedArray: IYAMLSequence;
+begin
+  jsonText := '{' +
+    '"mixed": [42, "hello", true, null, {"nested": "value"}, [1, 2, 3]]' +
+  '}';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  
+  mixedArray := doc.Root.Values['mixed'].AsSequence;
+  Assert.AreEqual(6, mixedArray.Count);
+  
+  Assert.AreEqual<Int64>(42, mixedArray.Items[0].AsInteger);
+  Assert.AreEqual('hello', mixedArray.Items[1].AsString);
+  Assert.AreEqual(true, mixedArray.Items[2].AsBoolean);
+  Assert.IsTrue(mixedArray.Items[3].IsNull);
+  Assert.AreEqual(TYAMLValueType.vtMapping, mixedArray.Items[4].ValueType);
+  Assert.AreEqual('value', mixedArray.Items[4].Values['nested'].AsString);
+  Assert.AreEqual(TYAMLValueType.vtSequence, mixedArray.Items[5].ValueType);
+  Assert.AreEqual(3, mixedArray.Items[5].AsSequence.Count);
+end;
+
+procedure TJSONParsingTests.TestJSONLargeNumbers;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+begin
+  jsonText := '{' +
+    '"maxInt": 9223372036854775807,' +
+    '"minInt": -9223372036854775808,' +
+    '"largeFloat": 1.7976931348623157e308,' +
+    '"smallFloat": 2.2250738585072014e-308,' +
+    '"precision": 0.123456789012345' +
+  '}';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  
+  Assert.AreEqual<Int64>(9223372036854775807, doc.Root.Values['maxInt'].AsInteger);
+  Assert.AreEqual<Int64>(-9223372036854775808, doc.Root.Values['minInt'].AsInteger);
+  Assert.IsTrue(doc.Root.Values['largeFloat'].AsFloat > 1e308);
+  Assert.IsTrue(doc.Root.Values['smallFloat'].AsFloat > 0);
+  Assert.AreEqual(0.123456789012345, doc.Root.Values['precision'].AsFloat, 0.000000000000001);
+end;
+
+procedure TJSONParsingTests.TestJSONWhitespaceHandling;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+begin
+  jsonText := '  {  ' + sLineBreak +
+    '    "key1"  :  "value1"  ,  ' + sLineBreak +
+    '    "key2"  :  [  1  ,  2  ,  3  ]  ' + sLineBreak +
+    '  }  ';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  
+  Assert.AreEqual('value1', doc.Root.Values['key1'].AsString);
+  Assert.AreEqual(3, doc.Root.Values['key2'].AsSequence.Count);
+  Assert.AreEqual<Int64>(2, doc.Root.Values['key2'].AsSequence.Items[1].AsInteger);
+end;
+
+procedure TJSONParsingTests.TestJSONSpecialStringValues;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+begin
+  jsonText := '{' +
+    '"numericString": "123",' +
+    '"boolString": "true",' +
+    '"nullString": "null",' +
+    '"specialChars": "!@#$%^&*()_+-={}[]|\\:;\"''<>?,./",' +
+    '"spaces": "  leading and trailing  "' +
+  '}';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  
+  Assert.AreEqual('123', doc.Root.Values['numericString'].AsString);
+  Assert.AreEqual('true', doc.Root.Values['boolString'].AsString);
+  Assert.AreEqual('null', doc.Root.Values['nullString'].AsString);
+  Assert.AreEqual('!@#$%^&*()_+-={}[]|\:;"''<>?,./', doc.Root.Values['specialChars'].AsString);
+  Assert.AreEqual('  leading and trailing  ', doc.Root.Values['spaces'].AsString);
+end;
+
+procedure TJSONParsingTests.TestJSONDeepNesting;
+var
+  jsonText: string;
+  doc: IYAMLDocument;
+  level1, level2, level3: IYAMLMapping;
+begin
+  jsonText := '{' +
+    '"level1": {' +
+      '"level2": {' +
+        '"level3": {' +
+          '"level4": {' +
+            '"level5": {' +
+              '"deepValue": "found it!"' +
+            '}' +
+          '}' +
+        '}' +
+      '}' +
+    '}' +
+  '}';
+  
+  doc := TYAML.LoadFromString(jsonText);
+  Assert.IsNotNull(doc.Root, 'LoadFromString returned null');
+  
+  level1 := doc.Root.Values['level1'].AsMapping;
+  level2 := level1.Values['level2'].AsMapping;
+  level3 := level2.Values['level3'].AsMapping;
+  
+  Assert.AreEqual('found it!', 
+    level3.Values['level4'].Values['level5'].Values['deepValue'].AsString);
 end;
 
 initialization
